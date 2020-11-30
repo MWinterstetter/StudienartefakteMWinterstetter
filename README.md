@@ -23,22 +23,39 @@ String result2 = sender.sendMessage("testopic/test", client, "Die zweite Nachric
 sender.closeMqttClient(client);
 ```
 
-Durch diesen, wie oben dargstellsten code wird ein MqttManager erstellt welcher Clients verwalten soll die sich zu dem Broker unter der Addresse tcp://127.0.0.1:1883 verbinden sollen. Für diesen Manager wird daraufhin ein client erstellt welcher zwei Nachrichten schickt. Zuerst wird die erste Nachricht geschickt und das ergebniss in result1 gespeichert, das ergebniss des Sendens der zweiten Nachricht wird in result 2 gespeichert. Nach dem Senden der beiden Nachrichten wird der erstellt Client geschlossen
+Durch diesen, wie oben dargstellsten code wird ein MqttManager erstellt welcher Clients verwalten soll die sich zu dem Broker unter der Addresse tcp://127.0.0.1:1883 verbinden sollen. Für diesen Manager wird daraufhin ein client erstellt welcher zwei Nachrichten schickt. Zuerst wird die erste Nachricht an das Topic "testopic/test" geschickt und das ergebniss in result1 gespeichert, die Zweute Nachricht wird an das Selbe Topic gesendet und das ergebniss des Sendens der zweiten Nachricht wird in result 2 gespeichert. Nach dem Senden der beiden Nachrichten wird der erstellt Client geschlossen
 
 Im Folgenden wird der Code Zeile für Zeile Beschrieben.
 
 
 ```Java
-		ConnectionOptions options = new ConnectionOptions();
+ConnectionOptions options = new ConnectionOptions();
  ```
-In dieser Zeile wird ein neues ConnectionOptions Objekt erstellt. In diesem Objekt werden die verschiedenen Optionen gespeichert welche für die Verbindung zwischen dem Client und dem Broker verwendet werden können. Dazu gehört Beispielsweise ob sich der Client Automatisch wieder mit dem Broker verbinden soll, wenn die Verbindung abgebrochen ist. 
+In dieser Zeile wird ein neues ConnectionOptions Objekt erstellt. In diesem Objekt werden die verschiedenen Optionen gespeichert welche für die Verbindung zwischen dem Client und dem Broker verwendet werden können. Dazu gehört Beispielsweise ob sich der Client Automatisch wieder mit dem Broker verbinden soll, wenn die Verbindung abgebrochen ist. Weiter Informationen zu den optionen können in den Javadocs gefunden werden.
 
 **Wichtig!** Über die ConnectionOptions werden auch der Nutzername und das Passwort für den Broker gesetzt zu dem sich der Client Verbinden soll.
 
+```Java
+MqttSenderManager sender = new MqttSenderManager("tcp://127.0.0.1:1883");
+ ```
+In dieser Zeile wird ein neuer MqttSenderManager erstellt. Jeder Client der durch diesen Manager erstellt wird, verbindet sich zu dem Broker der unter 127.0.0.1:1883
+läuft.
 
+```Java
+String client = sender.addMqttClient(options);
+ ```
+In dieser Zeile wird ein neuer Client für den MqttSenderManager "sender" erstellt. Dieser Client verwendet die ConnectionOptions "options" für seine Verbindung zum Broker. Beim erstellen des client wird für den Client ein Name generiert welcher in der Variable client gespeichert wird. Dieser Name wird beim senden benötigt um ein Client zu spezifizieren welcher die Nachricht an das spezifiziert Topic sendet.
 
+```Java
+String result1 = sender.sendMessage("testopic/test", client, "Die erste Nachricht");
+String result2 = sender.sendMessage("testopic/test", client, "Die zweite Nachricht");
+ ```
+Durch diese beiden Zeilen wird jeweils eine Nachricht gesendet. Die Nachricht "Die erste Nachricht" wird an das Topic "testopic/test". Das Ergebnis des sendens der Nachricht wird in resultq gespeichert. Das selbe gilt für die zweite Nachricht "Die zweite Nachricht".
 
-
+```Java
+sender.closeMqttClient(client);
+ ```
+Die letzte Zeile schliest den spezifizierten Client und macht ihn unverwendbar. Um neue Nachrichten zu schicken muss ein anderer Client verwendet werden.
 
 
 
