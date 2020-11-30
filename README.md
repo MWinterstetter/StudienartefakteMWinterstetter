@@ -57,6 +57,8 @@ sender.closeMqttClient(client);
  ```
 Die letzte Zeile schliest den spezifizierten Client und macht ihn unverwendbar. Um neue Nachrichten zu schicken muss ein anderer Client verwendet werden.
 
+**MqttReceiverManager**
+
 
 
 
