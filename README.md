@@ -31,7 +31,8 @@ Im Folgenden wird der Code Zeile für Zeile Beschrieben.
 ```Java
 		ConnectionOptions options = new ConnectionOptions();
  ```
-In dieser Zeile wird ein neues ConnectionOptions Objekt erstellt. In diesem Objekt werden die verschiedenen Optionen gespeichert welche für die Verbindung zwischen dem Client und dem Broker verwendet werden können. Dazu gehört Beispielsweise ob sich der Client Automatisch wieder mit dem Broker verbinden soll, wenn die Verbindung abgebrochen ist. **Wichtig!** Über die ConnectionOptions werden auch der Nutzername und das Passwort für den Broker gesetzt zu dem sich der Client Verbinden soll.
+In dieser Zeile wird ein neues ConnectionOptions Objekt erstellt. In diesem Objekt werden die verschiedenen Optionen gespeichert welche für die Verbindung zwischen dem Client und dem Broker verwendet werden können. Dazu gehört Beispielsweise ob sich der Client Automatisch wieder mit dem Broker verbinden soll, wenn die Verbindung abgebrochen ist. 
+**Wichtig!** Über die ConnectionOptions werden auch der Nutzername und das Passwort für den Broker gesetzt zu dem sich der Client Verbinden soll.
 
 
 
