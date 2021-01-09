@@ -91,14 +91,34 @@ Dieses Interface stellt eine Funktion bereit welcher drei Parameter übergeben w
 
 **DeviceRepresentationManager**
 
+Anders als wie bei dem SenderManager und ReceiverManager verwaltet der DeviceRepresentationManager keine ClientInterfaces direkt. Über den DeviceRepresentationManager werden DeviceRepresentations verwaltet welche ClientInterfaces haben. Im folgenden wird beschreiben wie ein DeviceRepresentationManager erstellt wird.
 
+```Java
+DeviceRepresentationManager devMan = new DeviceRepresentationManager("tcp://127.0.0.1:1883");
+devMan.addDeviceRepresentation("representedDeviceName", options, "testopic/testDevice");
+```
 
+Zuerst muss wie auch bei den anderen Managern der Manager selbst mit der Addresse des Brokers erstellt werden. Für die erstellung einer DeviceRepresentation muss die addDeviceRepresentation Funktion mit dem Namen der DeviceRepresentation (Am besten der Name des Representierten Gerätes), den Optionen für die Verbindung und dem Zieltopic, verwendet werden. Auf die erstellte DeviceRepresentation kann über die getDeviceRepresentation Funktion des DeviceRepresentationManagers Zugegriffen werden.
 
+```Java
+devMan.getDeviceRepresentation("representedDeviceName");
+```
+Eine Device Representation verfügt über Funktionen zum Senden und zum Empfangen von Nachrichten. Dafür können wie beim SenderManager Nachrichten gespeichert werden. Jede erstellte DeviceRepresentation Abonniert automatisch auf das übergebene Topic mit einer Wildcard. Dadurch werden alle Nachrichten die unter diesem Topic eigehen gelesen und in ein Array geschrieben. Dadurch enthält der Array den aktuellen Status des Gerätes das er Representiert. Die wichtigsten der verfügbaren Funktionen können wie folgt verwendet werden.
 
+Ein weiteres Abbonent wird durch addCallback erstellt.
+```Java
+devMan.getDeviceRepresentation("representedDeviceName").addCallback(topic, IMqttReceiver());
+```
+Auf die aktuellen Daten des Gerätes wird mit getDeviceValue zugegriffen.
+```Java
+devMan.getDeviceRepresentation("representedDeviceName").getDeviceValue(topic);
+```
+Eine Nachricht kann mit registerMessage gespeichert werden.
+```Java
+devMan.getDeviceRepresentation("representedDeviceName").registerMessage(name, topic, value);
+```
 
-
-
-
+Wenn der verwendete Smart Home Hub von JHMI unterstütz wird gibt kann auch eine Spezialisierte DeviceRepresentation verwendet werden. Diese ermöglicht gegebenfalls das verwendet von Funktionen die nur von diesem Smart Home Hub angeboten werden. Durch das verwenden dieser spezialisierten DeviceRepresentations ist der aufwand beim wechseln des Smart Home Hubs allerdings größer da die DeviceRepresentations angepasst werden müssen wenn sie diese spezialisierten Funktionen verwenden.
 
 
 
