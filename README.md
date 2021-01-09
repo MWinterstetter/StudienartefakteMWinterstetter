@@ -2,7 +2,7 @@
 
 Dieses Repository entählt verschiedene Artefakte die während der Studie für die erstellung einer Architektur, für die Integraiton von Software in die Smart Home Umgebung, erstellt wurde. Die wichtigsten Artefakte sind dabei die Use Cases und die Java Version des Interface Prototypen, das Java Home MQTT Interface (JHMI)
 
-# Java Home Mqtt Interface JHMI
+## Java Home Mqtt Interface JHMI
 
 Diese Biblitohek ist ein Java Interface für Smart Home durch Mqtt. Sie ist auf Paho als Mqtt Client und Homey als Hub zur Kontrolle des Smart Homes ausgelegt. Mögliche erweiterungen für weitere Clients oder Smart Home Hub Systeme sind aber mit in die Architektur einbezogen worden.
 
@@ -63,9 +63,33 @@ Die letzte Zeile schliest den spezifizierten Client und macht ihn unverwendbar. 
 
 **MqttReceiverManager**
 
+Der ReceiverManager verhält sich ähnlich wie der SenderManager. Wie ein ReceiverManager erstellt und verwendet werden kann wird im folgden dargestellt.
 
+```Java
+ConnectionOptions options2 = new ConnectionOptions();
+MqttReceiverManager receiver = new MqttReceiverManager("tcp://127.0.0.1:1883");
+String receiverClient = receiver.newSubscriber("testopic/test", options2, new IMqttReceiver() {
+    @Override
+    public void messageReceived(String topic, String messageString, int messageId) {
+        //Do Something here
+    }
+});
+```
 
+Wie auch beim Sender muss beim Receiver ein Client erstellt werden dem Optionen übergeben werden müssen, welche die verbindung mit dem Broker beschreiben. Anders als beim Senden, kann ein Client nur ein Topic Abbonieren. Wenn ein neues Topic Abboniert werden soll, muss also auch ein neuer Client über den Befehl newSubscriber erstellt werden. Eine Empfangene Nachricht wird über das IMqttReceiver Interface verarbeitet welches beim erstellen des Clients übergeben werden muss.
 
+```Java
+String receiverClient = receiver.newSubscriber("testopic/test", options2, new IMqttReceiver() {
+    @Override
+    public void messageReceived(String topic, String messageString, int messageId) {
+        //Do Something here
+    }
+});
+```
+
+Dieses Interface stellt eine Funktion bereit welcher drei Parameter übergeben werden. Die messageId welche die Empfangene Nachricht Identifiziert, der messageString welcher die Empfangene Nachricht enthält und das Topic zu welchem die Nachricht gesendet wurde.
+
+**DeviceRepresentationManager**
 
 
 
