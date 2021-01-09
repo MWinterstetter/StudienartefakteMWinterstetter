@@ -1,4 +1,4 @@
-# Java Home Mqtt Interface JHMI
+# Studienartefakte
 
 Dieses Repository entählt verschiedene Artefakte die während der Studie für die erstellung einer Architektur, für die Integraiton von Software in die Smart Home Umgebung, erstellt wurde. Die wichtigsten Artefakte sind dabei die Use Cases und die Java Version des Interface Prototypen, das Java Home MQTT Interface (JHMI)
 
