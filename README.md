@@ -1,5 +1,9 @@
 # Java Home Mqtt Interface JHMI
 
+Dieses Repository entählt verschiedene Artefakte die während der Studie für die erstellung einer Architektur, für die Integraiton von Software in die Smart Home Umgebung, erstellt wurde. Die wichtigsten Artefakte sind dabei die Use Cases und die Java Version des Interface Prototypen, das Java Home MQTT Interface (JHMI)
+
+# Java Home Mqtt Interface JHMI
+
 Diese Biblitohek ist ein Java Interface für Smart Home durch Mqtt. Sie ist auf Paho als Mqtt Client und Homey als Hub zur Kontrolle des Smart Homes ausgelegt. Mögliche erweiterungen für weitere Clients oder Smart Home Hub Systeme sind aber mit in die Architektur einbezogen worden.
 
 JHMI baut auf Mqtt auf und bietet keine Funktionen an welche nicht auch durch Beispielsweise den Paho client möglich währen. Das Ziel von JHMI ist es die Integration von Software in die Smart Home umgebung zu erleichtern und bietet dafür eine leicht zu verwendende Bibliothek an welche einige Quality of Live Funktionalitäten für die Kommunikation mit dem Smart Home Hub bietet. Sofern erweiterungen für weitere Clients und Hubs zur verfügung stehen ist durch diese Bibliothek auch der Austausche der Mqtt Clients und der Smart Home Hubs möglich ohne den Java Code anpassen zu müssen.
